@@ -7,14 +7,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Lista de compras',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.lightGreenAccent,
-        centerTitle: true,
-      ),
       body: LoginPage(),
     );
   }

@@ -63,7 +63,7 @@ class _State extends State<LoginPage> {
                 child: Text(
                   'Login',
                   style: TextStyle(
-                      color: Colors.greenAccent,
+                      color: Colors.green,
                       fontWeight: FontWeight.w500,
                       fontSize: 30),
                 )),
@@ -90,10 +90,12 @@ class _State extends State<LoginPage> {
             ),
             FlatButton(
               onPressed: () {
-                MaterialPageRoute(
-                    builder: (context) => CadastroPage());
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CadastroScreenPage()));
               },
-              textColor: Colors.greenAccent,
+              textColor: Colors.green,
               child: Text('Esqueci a senha, recadastrar'),
             ),
             Container(
@@ -101,7 +103,7 @@ class _State extends State<LoginPage> {
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: RaisedButton(
                   textColor: Colors.white,
-                  color: Colors.greenAccent,
+                  color: Colors.green,
                   child: Text('Login'),
                   onPressed: () async {
                     print(nameController.text);
@@ -113,7 +115,7 @@ class _State extends State<LoginPage> {
 
 
                     //verificar se está no DB e, se estiver, ir pra home
-                    if (logged == 0 || logged != 0)
+                    if (logged == 0)
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -129,14 +131,15 @@ class _State extends State<LoginPage> {
               children: <Widget>[
                 Text('Não possui conta?'),
                 FlatButton(
-                  textColor: Colors.greenAccent,
+                  textColor: Colors.green,
                   child: Text(
                     'Cadastrar',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    MaterialPageRoute(
-                        builder: (context) => CadastroPage());
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (context) => CadastroScreenPage()));
                   },
                 )
               ],
@@ -173,7 +176,7 @@ class _State extends State<LoginPage> {
 
     // iterate over the list and map each object in list to Img by calling Img.fromJson
     List<String> userList = prefs.getKeys().toList();
-
+    print(userList);
     return userList;
   }
 }

@@ -24,6 +24,14 @@ class _CartScreenState extends State<CartScreen> {
     return OrientationBuilder(
       builder: (context, orientation) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Lista de compras',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: Colors.lightGreenAccent,
+            centerTitle: true,
+          ),
           backgroundColor: Colors.white70,
           body: Column(
             children: <Widget>[

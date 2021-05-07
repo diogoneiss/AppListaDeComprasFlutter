@@ -1,50 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:todo_application/ui/login_screen.dart';
 import '../model/user_instance.dart';
 import 'dart:convert';
 import './cart_list_screen.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import './login_screen.dart';
 
-class CadastroPage extends StatefulWidget {
+class CadastroScreenPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new _State();
 }
 
-class _State extends State<CadastroPage> {
+class _State extends State<CadastroScreenPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  Future<List<String>> listOfUsers;
-
-  @override
-  void initState() {
-    super.initState();
-    _updateUsers();
-  }
-
-  _updateUsers() {
-    setState(() {
-      listOfUsers = _getUsers();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        body: FutureBuilder<List<String>>(
-            future: listOfUsers,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return functionBody(snapshot.data);
-            }));
+        appBar: AppBar(
+          title: Text(
+            'Lista de compras',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.lightGreenAccent,
+          centerTitle: true,
+        ),
+        body: functionBody());
   }
 
-  Widget functionBody(List<String> listOfUsers) {
+  Widget functionBody() {
     return Padding(
         padding: EdgeInsets.all(10),
         child: ListView(
@@ -82,11 +68,12 @@ class _State extends State<CadastroPage> {
             ),
 
             Container(
-                height: 50,
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                height: 70,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+
                 child: RaisedButton(
                   textColor: Colors.white,
-                  color: Colors.blue,
+                  color: Colors.green,
                   child: Text('Cadastrar '),
                   onPressed: () async {
                     print(nameController.text);
@@ -107,7 +94,7 @@ class _State extends State<CadastroPage> {
             Container(
                 child: Row(
                   children: <Widget>[
-                    Text('Não possui conta?'),
+                    Text('Já possui conta?'),
                     FlatButton(
                       textColor: Colors.blue,
                       child: Text(
@@ -115,7 +102,9 @@ class _State extends State<CadastroPage> {
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        //signup screen
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()));
                       },
                     )
                   ],
@@ -139,13 +128,5 @@ class _State extends State<CadastroPage> {
 
   }
 
-  Future<List<String>> _getUsers() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // iterate over the list and map each object in list to Img by calling Img.fromJson
-    List<String> userList = prefs.getKeys().toList();
-
-    return userList;
-  }
 }
 
